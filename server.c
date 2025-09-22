@@ -17,12 +17,41 @@
 
 #include "libft.h"
 
-// deve ser executado primeiro e deve printar o PID no terminal
+# define ZERO SIGUSR1
+# define ONE SIGUSR2
+
+static unsigned char	c;
+
+static void	handler(int signum)
+{
+	static int	i;
+
+	if (signum == ONE)
+		c |= (1 << i);
+	i++;
+	if (i == 8)
+	{
+		write (1, &c, 1);
+		if (c == '\0')
+			write (1, "\n", 1);
+		i = 0;
+		c = 0;
+	}
+}
+
 int	main(void)
 {
-	pid_t	server_pid;
+	struct sigaction	sa;
+	pid_t			server_pid;
+
 	server_pid = getpid();
 	ft_printf("server PID:%d\n", (int)server_pid);
-	// pega sinal do client
-	sigaction();
+	sa.sa_handler = handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(ZERO, &sa, NULL);
+	sigaction(ONE, &sa, NULL);
+	while (1)
+		pause();
+	return (0);
 }
