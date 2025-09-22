@@ -15,8 +15,8 @@
 #include <signal.h>
 #include <sys/types.h>
 
-# define BIT_ZERO SIGUSR1
-# define BIT_ONE SIGUSR2
+# define ZERO SIGUSR1
+# define ONE SIGUSR2
 
 static void	send_signal(char c, int server_pid)
 {
@@ -27,9 +27,9 @@ static void	send_signal(char c, int server_pid)
 	{
 		bit = (c >> i) & 1;
 		if (bit == 1)
-			kill(server_pid, BIT_ONE);
+			kill(server_pid, ONE);
 		else
-			kill(server_pid, BIT_ZERO);
+			kill(server_pid, ZERO);
 		i++;
 	}
 }
@@ -41,18 +41,18 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_printf("Informar PID do server e mensagem\n");
+		ft_putendl_fd("Uso: ./client <PID> <mensagem>", 2);
 		return (1);
 	}
 	server_pid = (pid_t)ft_atoi(argv[1]);
 	if (server_pid <= 0)
 	{
-		ft_printf("Erro: PID inválido\n");
+		ft_putendl_fd("Erro: PID inválido.", 2);
 		return (1);
 	}
 	message = argv[2];
 	while (*message)
-	`{
+	{
 		send_signal(*message, server_pid);
 		message++;
 	}
