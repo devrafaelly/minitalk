@@ -3,42 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rafaoliv <rafaoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:32:30 by marvin            #+#    #+#             */
-/*   Updated: 2025/09/15 18:32:30 by marvin           ###   ########.fr       */
+/*   Updated: 2025/09/23 20:35:49 by rafaoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#define _DEFAULT_SOURCE
 
 #include <unistd.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <sys/types.h>
 
-# define ZERO SIGUSR1
-# define ONE SIGUSR2
+#include "libft/libft.h"
 
+volatile sig_atomic_t	g_timeout = 1;
+
+static void	signal_control(int signum)
+{
+	if (signum == SIGUSR1)
+		g_timeout = 0;
+	else if (signum == SIGUSR2)
+		ft_printf("Mensagem recebida com sucesso!");
+}
 static void	send_signal(char c, int server_pid)
 {
-	int	bit;
+	unsigned char	bit;
 	int	i;
-	i = 0;
-	while (i < 8)
+
+	i = 8;
+	while (i--)
 	{
+		g_timeout = 1;
 		bit = (c >> i) & 1;
 		if (bit == 1)
-			kill(server_pid, ONE);
+			kill(server_pid, SIGUSR2);
 		else
-			kill(server_pid, ZERO);
-		i++;
+			kill(server_pid, SIGUSR1);
+		while (g_timeout)
+			pause();
 	}
+}
+
+static void	encode_char(char *s, int server_pid)
+{
+	while (*s)
+	{
+		send_signal(*s, server_pid);
+		s++;
+	}
+	send_signal(*s, server_pid);
 }
 
 int	main(int argc, char **argv)
 {
-	char	*message;
-	pid_t	server_pid;
+	char				*message;
+	pid_t				server_pid;
+	struct sigaction	sa;
 
+	sa.sa_handler = signal_control;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	if (argc != 3)
 	{
 		ft_putendl_fd("Uso: ./client <PID> <mensagem>", 2);
@@ -51,11 +80,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	message = argv[2];
-	while (*message)
-	{
-		send_signal(*message, server_pid);
-		message++;
-	}
-	send_signal(*message, server_pid);
+	encode_char(message, server_pid);
 	return (0);
 }

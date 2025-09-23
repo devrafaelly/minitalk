@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaoliv <rafaoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:36:12 by rafaoliv          #+#    #+#             */
-/*   Updated: 2025/09/05 16:35:14 by rafaoliv         ###   ########.fr       */
+/*   Updated: 2025/09/23 16:37:54 by rafaoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-# define MAX_FD 1024
+#define MAX_FD 1024
 
 static void	*free_memory(char *stash, char *buffer)
 {
