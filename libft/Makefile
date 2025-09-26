@@ -6,7 +6,7 @@
 #    By: rafaoliv <rafaoliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 11:31:58 by rafaoliv          #+#    #+#              #
-#    Updated: 2025/09/23 20:06:50 by rafaoliv         ###   ########.fr        #
+#    Updated: 2025/09/26 18:58:10 by rafaoliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,10 +90,8 @@ norminette:
 
 clean:
 	@rm -f $(OBJ)
-	@echo "Arquivos .o limpos 🧴"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(NAME) limpo 🧽🧼"
 
 re: fclean all

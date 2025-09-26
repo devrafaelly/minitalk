@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafaoliv <rafaoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 19:19:30 by marvin            #+#    #+#             */
-/*   Updated: 2025/09/26 18:33:25 by rafaoliv         ###   ########.fr       */
+/*   Updated: 2025/09/26 19:00:18 by rafaoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ static void	decode_char(int signum, siginfo_t *info, void *context)
 	if (i == 8)
 	{
 		if (c == '\0')
+		{
 			ft_putchar_fd('\n', 1);
+			sig = SIGUSR2;
+		}
 		else
 			ft_putchar_fd(c, 1);
 		i = 0;
