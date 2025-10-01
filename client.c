@@ -6,16 +6,9 @@
 /*   By: rafaoliv <rafaoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:32:30 by marvin            #+#    #+#             */
-/*   Updated: 2025/09/26 18:27:56 by rafaoliv         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:18:22 by rafaoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#define _DEFAULT_SOURCE
-
-#include <unistd.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <sys/types.h>
 
 #include "libft/libft.h"
 
@@ -26,6 +19,7 @@ static void	signal_control(int signum)
 	if (signum == SIGUSR1)
 		g_timeout = 0;
 }
+
 static void	send_signal(char c, int server_pid)
 {
 	int	i;

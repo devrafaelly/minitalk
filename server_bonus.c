@@ -6,16 +6,9 @@
 /*   By: rafaoliv <rafaoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 19:19:30 by marvin            #+#    #+#             */
-/*   Updated: 2025/09/26 19:00:18 by rafaoliv         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:17:28 by rafaoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#define _DEFAULT_SOURCE
-
-#include <signal.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 #include "libft/libft.h"
 
