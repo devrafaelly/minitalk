@@ -6,7 +6,7 @@
 /*   By: rafaoliv <rafaoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 18:32:30 by marvin            #+#    #+#             */
-/*   Updated: 2025/09/26 19:10:00 by rafaoliv         ###   ########.fr       */
+/*   Updated: 2025/09/29 15:02:51 by rafaoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static void	signal_control(int signum)
 		g_timeout = 0;
 	else if (signum == SIGUSR2)
 	{
-		g_timeout = 0;
 		ft_printf("Mensagem recebida com sucesso!");
 		ft_putchar_fd('\n', 1);
+		exit (0);
 	}
 }
 static void	send_signal(char c, int server_pid)
